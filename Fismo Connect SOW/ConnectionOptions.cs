@@ -12,9 +12,21 @@ namespace Fismo_Connect_SOW
 {
     public partial class ConnectionOptions : Form
     {
+        private System.IO.Ports.SerialPort nPort;
+        private bool validSerialPortSet = false;
+
         public ConnectionOptions()
         {
             InitializeComponent();
+        }
+        public bool GetValidSerialPortSet()
+        {
+            return validSerialPortSet;
+        }
+
+        public System.IO.Ports.SerialPort GetOpenSerialPort()
+        {
+            return nPort;
         }
 
         private void ConnectionOptions_Load(object sender, EventArgs e)
@@ -103,6 +115,35 @@ namespace Fismo_Connect_SOW
                     this.Close();
                 }
             }
+        }
+
+        private void buttonOK_Click(object sender, EventArgs e)
+        {
+            this.nPort = new System.IO.Ports.SerialPort();
+
+            try
+            {
+
+                int baudRate = System.Convert.ToInt32(this.comboBoxBaudRate.Text);
+
+                nPort.PortName = this.comboBoxComPort.Text;
+                nPort.BaudRate = baudRate;
+
+                nPort.Open();
+
+                //the user set a valid port
+                this.validSerialPortSet = true;
+
+                //close UI
+                this.Close();
+            }
+            catch(Exception ex)
+            {
+                //do usefuil things to help the user...
+            }
+
+            
+
         }
     }
 }
