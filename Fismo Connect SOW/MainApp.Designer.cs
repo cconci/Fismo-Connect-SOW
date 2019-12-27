@@ -61,6 +61,14 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.backgroundWorkerDevice = new System.ComponentModel.BackgroundWorker();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.richTextBoxManualInput = new System.Windows.Forms.RichTextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.buttonManualSend = new System.Windows.Forms.Button();
+            this.checkBoxApplyTigerProtocol = new System.Windows.Forms.CheckBox();
+            this.labelClearMonitor = new System.Windows.Forms.Label();
+            this.labelRawCommsRxClear = new System.Windows.Forms.Label();
+            this.labelRawCommsTxClear = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -78,10 +86,12 @@
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.tabPage5.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
             // 
+            this.statusStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
@@ -152,14 +162,14 @@
             // connectToolStripMenuItem
             // 
             this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
-            this.connectToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.connectToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.connectToolStripMenuItem.Text = "Connect";
             this.connectToolStripMenuItem.Click += new System.EventHandler(this.connectToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -168,6 +178,7 @@
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.Enabled = false;
             this.splitContainer1.Location = new System.Drawing.Point(0, 25);
             this.splitContainer1.Margin = new System.Windows.Forms.Padding(2);
             this.splitContainer1.Name = "splitContainer1";
@@ -200,6 +211,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.labelClearMonitor);
             this.tabPage1.Controls.Add(this.label5);
             this.tabPage1.Controls.Add(this.richTextBoxStatus);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -226,6 +238,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBoxStatus.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBoxStatus.HideSelection = false;
             this.richTextBoxStatus.Location = new System.Drawing.Point(8, 29);
             this.richTextBoxStatus.Name = "richTextBoxStatus";
             this.richTextBoxStatus.ReadOnly = true;
@@ -256,11 +269,13 @@
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.Controls.Add(this.labelRawCommsRxClear);
             this.splitContainer2.Panel1.Controls.Add(this.label2);
             this.splitContainer2.Panel1.Controls.Add(this.richTextBoxRX);
             // 
             // splitContainer2.Panel2
             // 
+            this.splitContainer2.Panel2.Controls.Add(this.labelRawCommsTxClear);
             this.splitContainer2.Panel2.Controls.Add(this.label1);
             this.splitContainer2.Panel2.Controls.Add(this.richTextBoxTX);
             this.splitContainer2.Size = new System.Drawing.Size(486, 465);
@@ -282,6 +297,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBoxRX.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBoxRX.HideSelection = false;
             this.richTextBoxRX.Location = new System.Drawing.Point(3, 29);
             this.richTextBoxRX.Name = "richTextBoxRX";
             this.richTextBoxRX.ReadOnly = true;
@@ -304,6 +320,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBoxTX.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBoxTX.HideSelection = false;
             this.richTextBoxTX.Location = new System.Drawing.Point(3, 32);
             this.richTextBoxTX.Name = "richTextBoxTX";
             this.richTextBoxTX.ReadOnly = true;
@@ -318,10 +335,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl2.Controls.Add(this.tabPage3);
             this.tabControl2.Controls.Add(this.tabPage4);
+            this.tabControl2.Controls.Add(this.tabPage5);
             this.tabControl2.Location = new System.Drawing.Point(3, 3);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(468, 500);
+            this.tabControl2.Size = new System.Drawing.Size(469, 500);
             this.tabControl2.TabIndex = 0;
             // 
             // tabPage3
@@ -335,7 +353,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(460, 474);
+            this.tabPage3.Size = new System.Drawing.Size(461, 474);
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Runtime";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -416,7 +434,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(460, 474);
+            this.tabPage4.Size = new System.Drawing.Size(461, 474);
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "Settings";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -429,6 +447,103 @@
             this.backgroundWorkerDevice.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorkerDevice_ProgressChanged);
             this.backgroundWorkerDevice.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerDevice_RunWorkerCompleted);
             // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.checkBoxApplyTigerProtocol);
+            this.tabPage5.Controls.Add(this.buttonManualSend);
+            this.tabPage5.Controls.Add(this.label6);
+            this.tabPage5.Controls.Add(this.richTextBoxManualInput);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(461, 474);
+            this.tabPage5.TabIndex = 2;
+            this.tabPage5.Text = "Manual";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // richTextBoxManualInput
+            // 
+            this.richTextBoxManualInput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBoxManualInput.Location = new System.Drawing.Point(22, 28);
+            this.richTextBoxManualInput.Name = "richTextBoxManualInput";
+            this.richTextBoxManualInput.Size = new System.Drawing.Size(411, 65);
+            this.richTextBoxManualInput.TabIndex = 0;
+            this.richTextBoxManualInput.Text = "";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(19, 11);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(88, 13);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "Input Data (HEX)";
+            // 
+            // buttonManualSend
+            // 
+            this.buttonManualSend.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.buttonManualSend.Location = new System.Drawing.Point(22, 122);
+            this.buttonManualSend.Name = "buttonManualSend";
+            this.buttonManualSend.Size = new System.Drawing.Size(411, 23);
+            this.buttonManualSend.TabIndex = 2;
+            this.buttonManualSend.Text = "Send";
+            this.buttonManualSend.UseVisualStyleBackColor = true;
+            this.buttonManualSend.Click += new System.EventHandler(this.buttonManualSend_Click);
+            // 
+            // checkBoxApplyTigerProtocol
+            // 
+            this.checkBoxApplyTigerProtocol.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.checkBoxApplyTigerProtocol.AutoSize = true;
+            this.checkBoxApplyTigerProtocol.Checked = true;
+            this.checkBoxApplyTigerProtocol.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxApplyTigerProtocol.Location = new System.Drawing.Point(22, 99);
+            this.checkBoxApplyTigerProtocol.Name = "checkBoxApplyTigerProtocol";
+            this.checkBoxApplyTigerProtocol.Size = new System.Drawing.Size(121, 17);
+            this.checkBoxApplyTigerProtocol.TabIndex = 3;
+            this.checkBoxApplyTigerProtocol.Text = "Apply Tiger Protocol";
+            this.checkBoxApplyTigerProtocol.UseVisualStyleBackColor = true;
+            // 
+            // labelClearMonitor
+            // 
+            this.labelClearMonitor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelClearMonitor.AutoSize = true;
+            this.labelClearMonitor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelClearMonitor.ForeColor = System.Drawing.Color.Blue;
+            this.labelClearMonitor.Location = new System.Drawing.Point(457, 13);
+            this.labelClearMonitor.Name = "labelClearMonitor";
+            this.labelClearMonitor.Size = new System.Drawing.Size(31, 13);
+            this.labelClearMonitor.TabIndex = 3;
+            this.labelClearMonitor.Text = "Clear";
+            this.labelClearMonitor.Click += new System.EventHandler(this.labelClearMonitor_Click);
+            // 
+            // labelRawCommsRxClear
+            // 
+            this.labelRawCommsRxClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelRawCommsRxClear.AutoSize = true;
+            this.labelRawCommsRxClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelRawCommsRxClear.ForeColor = System.Drawing.Color.Blue;
+            this.labelRawCommsRxClear.Location = new System.Drawing.Point(452, 10);
+            this.labelRawCommsRxClear.Name = "labelRawCommsRxClear";
+            this.labelRawCommsRxClear.Size = new System.Drawing.Size(31, 13);
+            this.labelRawCommsRxClear.TabIndex = 4;
+            this.labelRawCommsRxClear.Text = "Clear";
+            this.labelRawCommsRxClear.Click += new System.EventHandler(this.labelRawCommsRxClear_Click);
+            // 
+            // labelRawCommsTxClear
+            // 
+            this.labelRawCommsTxClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelRawCommsTxClear.AutoSize = true;
+            this.labelRawCommsTxClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelRawCommsTxClear.ForeColor = System.Drawing.Color.Blue;
+            this.labelRawCommsTxClear.Location = new System.Drawing.Point(452, 15);
+            this.labelRawCommsTxClear.Name = "labelRawCommsTxClear";
+            this.labelRawCommsTxClear.Size = new System.Drawing.Size(31, 13);
+            this.labelRawCommsTxClear.TabIndex = 5;
+            this.labelRawCommsTxClear.Text = "Clear";
+            this.labelRawCommsTxClear.Click += new System.EventHandler(this.labelRawCommsTxClear_Click);
+            // 
             // MainApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -439,10 +554,11 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.MinimumSize = new System.Drawing.Size(200, 599);
+            this.MinimumSize = new System.Drawing.Size(600, 600);
             this.Name = "MainApp";
             this.Text = "Fismo Connect SOW";
             this.Load += new System.EventHandler(this.MainApp_Load);
+            this.Shown += new System.EventHandler(this.MainApp_Shown);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -466,6 +582,8 @@
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -505,6 +623,14 @@
         private System.IO.Ports.SerialPort serialPort1;
         private System.ComponentModel.BackgroundWorker backgroundWorkerDevice;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.Button buttonManualSend;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.RichTextBox richTextBoxManualInput;
+        private System.Windows.Forms.CheckBox checkBoxApplyTigerProtocol;
+        private System.Windows.Forms.Label labelClearMonitor;
+        private System.Windows.Forms.Label labelRawCommsRxClear;
+        private System.Windows.Forms.Label labelRawCommsTxClear;
     }
 }
 

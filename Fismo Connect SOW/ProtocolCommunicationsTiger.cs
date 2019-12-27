@@ -43,7 +43,9 @@ namespace Fismo_Connect_SOW
             {
                 //process buffer
 
-                //
+                //Adjust as we did not know where the buffer was going to end before and added the CS
+                this.checksum -= this.rxBuffer.ElementAt(this.rxBuffer.Count - 1);
+
                 byte checkSumCalc = (byte)(((this.checksum ^ 0xFF) + 1) & 0xFF);
                 if (checkSumCalc == this.rxBuffer.ElementAt(this.rxBuffer.Count-1))//check the CS
                 {

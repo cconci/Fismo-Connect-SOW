@@ -43,6 +43,7 @@ namespace Fismo_Connect_SOW
             this.toolStripStatusLabel_author.Text = ApplicationDefines.Get_Author_String();
 
             this.UpdateStatusTerminal("Application Started",true);
+
         }
 
         private void connectToolStripMenuItem_Click(object sender, EventArgs e)
@@ -55,6 +56,9 @@ namespace Fismo_Connect_SOW
                 this.connectToolStripMenuItem.Text = "Connect";
 
                 this.serialPort1.Close();
+
+                //disable the interface
+                this.splitContainer1.Enabled = false;
             }
             else
             {
@@ -73,6 +77,9 @@ namespace Fismo_Connect_SOW
                     this.UpdateStatusTerminal("Process Started, COM: "+this.serialPort1.PortName +" open @ "+this.serialPort1.BaudRate+" baud", true);
 
                     this.connectToolStripMenuItem.Text = "Disconnect";
+
+                    //enable the interface
+                    this.splitContainer1.Enabled = true;
                 }
             }
         }
@@ -139,6 +146,7 @@ namespace Fismo_Connect_SOW
                     this.UpdateStatusTerminal((String)e.UserState,true);
                     break;
                 case (int)BGW_STATES.BGW_TERM_RX_UPDATE:
+                    this.UpDateRawRxTerminal((String)e.UserState);
                     break;
             }
         }
@@ -146,6 +154,82 @@ namespace Fismo_Connect_SOW
         private void backgroundWorkerDevice_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             this.UpdateStatusTerminal("Device BGW Completed", true);
+        }
+
+        private void buttonManualSend_Click(object sender, EventArgs e)
+        {
+            //Manual send
+
+            //get input
+            List<byte> inputData = SupportFunctions.ASCIIHexStringToByteList(this.richTextBoxManualInput.Text);
+
+            if (inputData == null)
+            {
+                this.UpdateStatusTerminal("Input Error - check input data", true);
+                return;
+            }
+
+            if (this.checkBoxApplyTigerProtocol.Checked == true)
+            {
+                //apply Tiger
+                inputData = ProtocolCommunicationsTiger.GeneratePacketForTx(inputData);
+            }
+
+            //Send
+            this.SendToOpenSerialPort(inputData);
+
+        }
+
+        private bool SendToOpenSerialPort(List<byte> dataToSend)
+        {
+            this.UpDateRawTxTerminal(dataToSend);
+            try
+            {
+                this.serialPort1.Write(SupportFunctions.ConvertByteListToByteArray(dataToSend), 0, dataToSend.Count);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.Print(ex.ToString());
+                this.UpdateStatusTerminal("TX Error - check connections", true);
+                return false;
+            }
+
+            return true;
+        }
+
+        private void UpDateRawTxTerminal(List<byte> dataToSend)
+        {
+            this.richTextBoxTX.AppendText(SupportFunctions.ByteListToString(dataToSend) + "\n");
+        }
+
+        private void UpDateRawRxTerminal(List<byte> dataToSend)
+        {
+            this.richTextBoxRX.AppendText(SupportFunctions.ByteListToString(dataToSend));
+        }
+        private void UpDateRawRxTerminal(string dataToSend)
+        {
+            this.richTextBoxRX.AppendText(dataToSend);
+        }
+
+
+        private void MainApp_Shown(object sender, EventArgs e)
+        {
+            this.connectToolStripMenuItem_Click(sender, e);
+        }
+
+        private void labelClearMonitor_Click(object sender, EventArgs e)
+        {
+            this.richTextBoxStatus.Clear();
+        }
+
+        private void labelRawCommsRxClear_Click(object sender, EventArgs e)
+        {
+            this.richTextBoxRX.Clear();
+        }
+
+        private void labelRawCommsTxClear_Click(object sender, EventArgs e)
+        {
+            this.richTextBoxTX.Clear();
         }
     }
 }

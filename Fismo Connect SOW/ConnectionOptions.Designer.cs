@@ -35,6 +35,7 @@
             this.buttonOK = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.labelAutoDetect = new System.Windows.Forms.Label();
+            this.labelRefreshList = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // comboBoxComPort
@@ -42,7 +43,7 @@
             this.comboBoxComPort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxComPort.FormattingEnabled = true;
             this.comboBoxComPort.Location = new System.Drawing.Point(169, 67);
-            this.comboBoxComPort.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBoxComPort.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxComPort.Name = "comboBoxComPort";
             this.comboBoxComPort.Size = new System.Drawing.Size(109, 21);
             this.comboBoxComPort.TabIndex = 0;
@@ -72,7 +73,7 @@
             this.comboBoxBaudRate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxBaudRate.FormattingEnabled = true;
             this.comboBoxBaudRate.Location = new System.Drawing.Point(169, 109);
-            this.comboBoxBaudRate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBoxBaudRate.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxBaudRate.Name = "comboBoxBaudRate";
             this.comboBoxBaudRate.Size = new System.Drawing.Size(109, 21);
             this.comboBoxBaudRate.TabIndex = 2;
@@ -80,7 +81,7 @@
             // buttonOK
             // 
             this.buttonOK.Location = new System.Drawing.Point(142, 182);
-            this.buttonOK.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonOK.Margin = new System.Windows.Forms.Padding(2);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(62, 28);
             this.buttonOK.TabIndex = 4;
@@ -111,11 +112,25 @@
             this.labelAutoDetect.Text = "Auto Detect";
             this.labelAutoDetect.Click += new System.EventHandler(this.labelAutoDetect_Click);
             // 
+            // labelRefreshList
+            // 
+            this.labelRefreshList.AutoSize = true;
+            this.labelRefreshList.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelRefreshList.ForeColor = System.Drawing.Color.Blue;
+            this.labelRefreshList.Location = new System.Drawing.Point(141, 150);
+            this.labelRefreshList.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelRefreshList.Name = "labelRefreshList";
+            this.labelRefreshList.Size = new System.Drawing.Size(63, 13);
+            this.labelRefreshList.TabIndex = 7;
+            this.labelRefreshList.Text = "Refresh List";
+            this.labelRefreshList.Click += new System.EventHandler(this.labelRefreshList_Click);
+            // 
             // ConnectionOptions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(357, 220);
+            this.Controls.Add(this.labelRefreshList);
             this.Controls.Add(this.labelAutoDetect);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.buttonOK);
@@ -123,7 +138,7 @@
             this.Controls.Add(this.comboBoxBaudRate);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBoxComPort);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ConnectionOptions";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Connection Options";
@@ -142,5 +157,6 @@
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label labelAutoDetect;
+        private System.Windows.Forms.Label labelRefreshList;
     }
 }

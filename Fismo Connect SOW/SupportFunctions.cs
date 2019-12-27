@@ -39,7 +39,7 @@ namespace Standard_Chris
 
             for (int a = 0; a < dataLen; a++)
             {
-                retVal += " " + data[a].ToString("X2");
+                retVal += data[a].ToString("X2") + " ";
             }
 
             return retVal;
@@ -52,10 +52,54 @@ namespace Standard_Chris
 
             for (int a = 0; a < dataIn.Count; a++)
             {
-                retVal += " " + dataIn[a].ToString("X2");
+                retVal += dataIn[a].ToString("X2") + " ";
             }
 
             return retVal;
+        }
+
+        public static byte[] ASCIIHexStringToByteArray(string asciiHexString)
+        {
+            string[] splitData = asciiHexString.Split(' ');
+
+            byte[] bytes = new byte[splitData.Length];
+            try
+            {
+
+                for (int a = 0; a < splitData.Length; a++)
+                {
+                    bytes[a] = System.Convert.ToByte(splitData[a], 16);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.Print(ex.ToString());
+                return null;//data is not formated correctly 
+            }
+
+            return bytes;
+        }
+
+        public static List<byte> ASCIIHexStringToByteList(string asciiHexString)
+        {
+            string[] splitData = asciiHexString.Split(' ');
+
+            List<byte> bytes = new List<byte>();
+
+            try
+            {
+                for (int a = 0; a < splitData.Length; a++)
+                {
+                    bytes.Add(System.Convert.ToByte(splitData[a], 16));
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.Print(ex.ToString());
+                return null;//data is not formated correctly 
+            }
+
+            return bytes;
         }
 
     }

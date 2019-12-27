@@ -145,5 +145,10 @@ namespace Fismo_Connect_SOW
             
 
         }
+
+        private void labelRefreshList_Click(object sender, EventArgs e)
+        {
+            this.RefreshCOMPortList();
+        }
     }
 }

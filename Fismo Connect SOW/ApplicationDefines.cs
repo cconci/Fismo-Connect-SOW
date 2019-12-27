@@ -10,7 +10,7 @@ namespace Fismo_Connect_SOW
     {
         public const byte VERSION_MAJOR = 0;
         public const byte VERSION_MINOR = 0;
-        public const byte VERSION_REVISION = 1;
+        public const byte VERSION_REVISION = 2;
         public const byte VERSION_LETTER = (byte)'A';
 
         //VID_0403+PID_6001
